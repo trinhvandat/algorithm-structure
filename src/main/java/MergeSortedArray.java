@@ -26,19 +26,26 @@ public class MergeSortedArray {
 
     private static int[] merge(int[] nums1, int m, int[] nums2, int n) {
 
-        if (n == 0) {
-            return nums1;
+        int nums1Index = m - 1;
+        int nums2Index = n - 1;
+        int outputIndex = m + n - 1;
+
+        while (nums1Index >= 0 && nums2Index >= 0) {
+            if (nums1[nums1Index] > nums2[nums2Index]) {
+                nums1[outputIndex] = nums1[nums1Index];
+                nums1Index --;
+            } else {
+                nums1[outputIndex] = nums2[nums2Index];
+                nums2Index --;
+            }
+            outputIndex --;
         }
 
-        int outputLength = nums1.length;
-        int num2Index = 0;
-
-        for (int index = m; index < outputLength; index++) {
-            nums1[index] = nums2[num2Index];
-            num2Index++;
+        while (nums2Index >= 0) {
+            nums1[outputIndex] = nums2[nums2Index];
+            nums2Index --;
+            outputIndex --;
         }
-
-        Arrays.sort(nums1);
 
         return nums1;
     }
